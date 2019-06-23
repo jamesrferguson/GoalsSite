@@ -19,28 +19,28 @@ class GoalController extends Controller
         return view( 'GoalDetail', [ 'goal' => Goal::findOrFail( $id ) ] );
     }
 
+    protected function redirectToHomePage( $message )
+    {
+        return redirect('/')->with([
+            'flash-message'=>$message,
+            'flash-message-important'=>true
+        ]);;
+    }
+
     public function createNewGoal(Request $request)
     {
         $goal = new Goal;
         $goal->goalname = $request->goalName;
         $goal->goaldate = $request->goalDate;
         $goal->goalreason = $request->goalReason;
-
         $goal->save();
-
-        return redirect('/')->with([
-            'flash-message'=>'New goal created!',
-            'flash-message-important'=>true
-        ]);;
+        return $this->redirectToHomePage( 'New goal created!' );
     }
 
     public function deleteGoal($id)
     {
         $goal = Goal::findOrFail($id);
         $goal->delete();
-        return redirect('/')->with([
-            'flash-message'=>'Goal Deleted!',
-            'flash-message-important'=>true
-        ]);;
+        return $this->redirectToHomePage( 'Goal Deleted!' );
     }
 }
