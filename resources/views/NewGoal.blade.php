@@ -3,20 +3,19 @@
 @section('title', 'Create A New Goal')
     
 @section('content')
-    <form action="/addgoal" method="POST">
-        @csrf
+    {{ Form::open(array('url' => '/addgoal')) }}
         <div class="form-group">
-            <label for="goalName">Name</label>
-            <input type="text" class="form-control" id="goalName"  name="goalName" placeholder="Goal Name">
+            {!! Form::label('goalName', 'Goal Name') !!}
+            {!! Form::text('goalName', null, ['class' => 'form-control']) !!}
         </div>
         <div class="form-group">
-            <label for="goalDate">Due Date</label>
-            <input type="date" class="form-control" name="goalDate" id="goalDate">
+            {!! Form::label('goalDate', 'Goal Date') !!}
+            {!! Form::date('goalDate', null, ['class' => 'form-control']) !!}
         </div>
         <div class="form-group">
-            <label for="goalReason">Reason</label>
-            <textarea type="text" class="form-control" id="goalReason" name="goalReason" rows="5"></textarea>
+            {!! Form::label('goalReason', 'Goal Reason') !!}
+            {!! Form::textarea('goalReason', null, ['class' => 'form-control']) !!}
         </div>
-        <input type="submit" value="Submit">        
-    </form>
+        {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+    {{ Form::close() }}
 @endsection

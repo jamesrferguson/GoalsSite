@@ -27,5 +27,20 @@ class GoalController extends Controller
         $goal->goalreason = $request->goalReason;
 
         $goal->save();
+
+        return redirect('/')->with([
+            'flash-message'=>'New goal created!',
+            'flash-message-important'=>true
+        ]);;
+    }
+
+    public function deleteGoal($id)
+    {
+        $goal = Goal::findOrFail($id);
+        $goal->delete();
+        return redirect('/')->with([
+            'flash-message'=>'Goal Deleted!',
+            'flash-message-important'=>true
+        ]);;
     }
 }

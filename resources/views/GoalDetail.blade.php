@@ -3,18 +3,21 @@
 @section('title', 'Goal Name')
     
 @section('content')
-    <form>
+
+    {{ Form::open(['method' => 'DELETE', 'url' => "/deletegoal/{$goal->goalid}"]) }}
         <div class="form-group">
-            <label for="goalName">Name</label>
-            <input type="text" class="form-control" id="goalName" value="{{$goal->goalname}}" readonly>
+            {!! Form::label('goalName', 'Goal Name') !!}
+            {!! Form::text('goalName', $goal->goalname, ['class' => 'form-control', 'readonly' => 'true']) !!}
         </div>
         <div class="form-group">
-            <label for="goalDate">Due Date</label>
-            <input type="date" class="form-control" id="goalDate" value="{{$goal->goaldate}}" readonly>
+            {!! Form::label('goalDate', 'Goal Date') !!}
+            {!! Form::date('goalDate', $goal->goaldate, ['class' => 'form-control', 'readonly' => 'true']) !!}
         </div>
         <div class="form-group">
-            <label for="goalReason">Reason</label>
-            <textarea type="text" class="form-control" id="goalReason" rows="5" readonly>{{$goal->goalreason}}</textarea>
-        </div>        
-    </form>
+            {!! Form::label('goalReason', 'Goal Reason') !!}
+            {!! Form::textarea('goalReason', $goal->goalreason, ['class' => 'form-control', 'readonly' => 'true']) !!}
+        </div>
+        {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+    {{ Form::close() }}
+
 @endsection
