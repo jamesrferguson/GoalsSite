@@ -19,6 +19,11 @@ class GoalController extends Controller
         return view( 'GoalDetail', [ 'goal' => Goal::findOrFail( $id ) ] );
     }
 
+    public function editGoal( $id )
+    {
+        return view( 'GoalEdit', [ 'goal' => Goal::findOrFail( $id ) ] );
+    }
+
     protected function redirectToHomePage( $message )
     {
         return redirect('/')->with([
@@ -35,6 +40,17 @@ class GoalController extends Controller
         $goal->goalreason = $request->goalReason;
         $goal->save();
         return $this->redirectToHomePage( 'New goal created!' );
+    }
+
+
+    public function updateGoal(Request $request, $id)
+    {
+        $goal = Goal::findOrFail($id);
+        $goal->goalname = $request->goalName;
+        $goal->goaldate = $request->goalDate;
+        $goal->goalreason = $request->goalReason;
+        $goal->save();
+        return $this->redirectToHomePage( 'Goal updated!' );
     }
 
     public function deleteGoal($id)

@@ -3,20 +3,20 @@
 @section('title', 'Goal Name')
     
 @section('content')
+    <h1>{{ $goal->goalname }}</h1>
+    <h3>Date: {{ $goal->goaldate }}</h3>
+    <h4>Reason:</h4>
+    <p>{{ $goal->goalreason }}</p>
+    
+    <a href="/editgoal/{{$goal->goalid}}" class='btn btn-primary'>Edit</a>
 
-    {{ Form::open(['method' => 'DELETE', 'url' => "/deletegoal/{$goal->goalid}"]) }}
-        <div class="form-group">
-            {!! Form::label('goalName', 'Goal Name') !!}
-            {!! Form::text('goalName', $goal->goalname, ['class' => 'form-control', 'readonly' => 'true']) !!}
-        </div>
-        <div class="form-group">
-            {!! Form::label('goalDate', 'Goal Date') !!}
-            {!! Form::date('goalDate', $goal->goaldate, ['class' => 'form-control', 'readonly' => 'true']) !!}
-        </div>
-        <div class="form-group">
-            {!! Form::label('goalReason', 'Goal Reason') !!}
-            {!! Form::textarea('goalReason', $goal->goalreason, ['class' => 'form-control', 'readonly' => 'true']) !!}
-        </div>
+    <hr>
+
+    
+
+    {{ Form::open(['method' => 'POST', 'url' => "/deletegoal/{$goal->goalid}", 'class' => 'pull-right']) }}
+        {{Form::hidden('_method', 'DELETE')}}
+        <a href="/" class='btn btn-secondary pull-right'>Back</a>
         {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
     {{ Form::close() }}
 

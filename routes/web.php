@@ -23,9 +23,13 @@ Route::get('/create', function () {
 
 Route::get( '/goaldetail/{id}', 'GoalController@getGoalById' );
 
+Route::get( '/editgoal/{id}', 'GoalController@editGoal' );
+
 Route::post('/addgoal', 'GoalController@createNewGoal');
 
 Route::delete('/deletegoal/{id}', 'GoalController@deleteGoal');
+
+Route::put('/updategoal/{id}', 'GoalController@updateGoal');
 
 Route::get('/entry', function () {
     return view('AddEntry');
