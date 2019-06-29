@@ -7,6 +7,4 @@ use Illuminate\Database\Eloquent\Model;
 class Goal extends Model
 {
     protected $primaryKey = 'goalid';
-
-    public $timestamps = false;
 }
