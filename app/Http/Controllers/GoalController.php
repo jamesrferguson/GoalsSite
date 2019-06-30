@@ -48,7 +48,6 @@ class GoalController extends Controller
         return $this->redirectToHomePage( 'New goal created!' );
     }
 
-
     public function updateGoal(Request $request, $id)
     {
         $goal = Goal::findOrFail($id);

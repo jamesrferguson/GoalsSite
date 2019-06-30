@@ -37,6 +37,10 @@
             </div>
         </div>
     </div>
+<a href="/createentry/{{$goal->goalid}}" class='btn btn-primary pull-right'>Add Entry</a>
+
+<hr>
+<h2>Entries</h2>    
 
     
 

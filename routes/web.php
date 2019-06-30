@@ -19,20 +19,19 @@ Route::get('/login', function () {
 
 Route::get('/create', function () {
     return view('NewGoal');
-})->middleware('auth');;
-
-Route::get( '/goaldetail/{id}', 'GoalController@getGoalById' )->middleware('auth');;
-
-Route::get( '/editgoal/{id}', 'GoalController@editGoal' )->middleware('auth');;
-
-Route::post('/addgoal', 'GoalController@createNewGoal')->middleware('auth');;
-
-Route::delete('/deletegoal/{id}', 'GoalController@deleteGoal')->middleware('auth');;
-
-Route::put('/updategoal/{id}', 'GoalController@updateGoal')->middleware('auth');;
-
-Route::get('/entry', function () {
-    return view('AddEntry');
 })->middleware('auth');
+
+Route::get( '/goaldetail/{id}', 'GoalController@getGoalById' )->middleware('auth');
+
+Route::get( '/editgoal/{id}', 'GoalController@editGoal' )->middleware('auth');
+
+Route::post('/addgoal', 'GoalController@createNewGoal')->middleware('auth');
+
+Route::delete('/deletegoal/{id}', 'GoalController@deleteGoal')->middleware('auth');
+
+Route::put('/updategoal/{id}', 'GoalController@updateGoal')->middleware('auth');
+
+Route::get('/createentry/{goalId}', 'EntryController@createNewEntryForGoal' )->middleware('auth');
+Route::post('/newentry/{goalId}', 'EntryController@store' )->middleware('auth');
 
 Auth::routes();
