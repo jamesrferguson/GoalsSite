@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Goal;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class GoalController extends Controller
 {
     public function getGoals()
     {
-        $goals = Goal::all();
+        $userid = Auth::id();
+        $goals = Goal::where('user_id', $userid)->get();
         return view( 'welcome', [ 'goals'=>$goals ] );
     }
 
@@ -38,6 +40,7 @@ class GoalController extends Controller
         $goal->goalname = $request->goalName;
         $goal->goaldate = $request->goalDate;
         $goal->goalreason = $request->goalReason;
+        $goal->user_id = Auth::id();
         $goal->save();
         return $this->redirectToHomePage( 'New goal created!' );
     }
