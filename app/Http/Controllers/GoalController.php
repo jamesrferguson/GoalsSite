@@ -28,14 +28,17 @@ class GoalController extends Controller
 
     protected function redirectToHomePage( $message )
     {
-        return redirect('/')->with([
-            'flash-message'=>$message,
-            'flash-message-important'=>true
-        ]);;
+        return redirect('/')->withSuccess($message);
     }
 
     public function createNewGoal(Request $request)
     {
+        $this->validate($request, [
+            'goalName' => 'required',
+            'goalDate' => 'required',
+            'goalReason' => 'required'
+        ]);
+        
         $goal = new Goal;
         $goal->goalname = $request->goalName;
         $goal->goaldate = $request->goalDate;
