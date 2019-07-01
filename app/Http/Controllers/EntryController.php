@@ -8,15 +8,6 @@ use Illuminate\Http\Request;
 
 class EntryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -24,8 +15,20 @@ class EntryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function createNewEntryForGoal($goalId)
-    {
+    {         
         return view( 'AddEntry', [ 'goal' => Goal::findOrFail( $goalId ) ] );
+    }
+
+
+    public function getEntryById( $id )
+    {
+        return view( 'EntryDetail', [ 'entry' => GoalEntry::findOrFail( $id ) ] );
+    }
+
+
+    public function editEntry( $id )
+    {
+        return view( 'EntryEdit', [ 'entry' => GoalEntry::findOrFail( $id ) ] );
     }
 
     /**
@@ -51,48 +54,22 @@ class EntryController extends Controller
         return redirect("/goaldetail/{$goalId}")->withSuccess("Created new entry for goal.");
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function updateEntry(Request $request, $id)
     {
-        //
+        $entry = GoalEntry::findOrFail($id);
+        $entry->entryname = $request->entryName;
+        $entry->entrydate = $request->entryDate;
+        $entry->entrytext = $request->entryDetail;
+        $entry->save();
+        return redirect("/entrydetail/{$id}")->withSuccess("Entry updated.");
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function deleteEntry($id)
     {
-        //
+        $entry = GoalEntry::findOrFail($id);
+        $goalId = $entry->goal_id;
+        $entry->delete();
+        return redirect("/goaldetail/{$goalId}")->withSuccess("Entry deleted.");
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

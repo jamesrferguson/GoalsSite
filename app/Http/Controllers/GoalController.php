@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Goal;
+use App\GoalEntry;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -12,13 +13,14 @@ class GoalController extends Controller
     public function getGoals()
     {
         $userid = Auth::id();
-        $goals = Goal::where('user_id', $userid)->get();
+        $goals = Goal::where('user_id', $userid)->orderBy('created_at')->paginate(5);
         return view( 'welcome', [ 'goals'=>$goals ] );
     }
 
     public function getGoalById( $id )
     {
-        return view( 'GoalDetail', [ 'goal' => Goal::findOrFail( $id ) ] );
+        $entries = GoalEntry::where('goal_id', $id)->orderBy('entrydate')->paginate(3);
+        return view( 'GoalDetail', [ 'goal' => Goal::findOrFail( $id ), 'entries' => $entries ] );
     }
 
     public function editGoal( $id )
@@ -29,6 +31,11 @@ class GoalController extends Controller
     protected function redirectToHomePage( $message )
     {
         return redirect('/')->withSuccess($message);
+    }
+
+    public function create()
+    {
+        return view('NewGoal');
     }
 
     public function createNewGoal(Request $request)

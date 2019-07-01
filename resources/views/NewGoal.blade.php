@@ -17,5 +17,6 @@
             {!! Form::textarea('goalReason', null, ['class' => 'form-control']) !!}
         </div>
         {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+        <a href="/" class='btn btn-secondary pull-right'>Back</a>
     {{ Form::close() }}
 @endsection

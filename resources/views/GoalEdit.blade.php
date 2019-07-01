@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Goal Name')
+@section('title', "Edit: {$goal->goalname}")
     
 @section('content')
 
